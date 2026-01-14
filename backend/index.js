@@ -17,7 +17,8 @@ connectDB();
 const app = express();
 app.use(cors({
   origin: [
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://frontend-developer-task-rho.vercel.app",
       
     ],
   credentials: true,
