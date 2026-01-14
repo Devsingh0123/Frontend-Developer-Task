@@ -39,7 +39,7 @@ const Login = () => {
   }
 
   if (error) {
-    toast.error(`${error} ❌`);
+    toast.error(error);
   }
 }, [isAuthenticated, error, navigate]);
 
