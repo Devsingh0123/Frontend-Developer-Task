@@ -66,6 +66,7 @@ backend/
 │   └── Task.schema.js
 ├── routes/
 │   ├── auth.routes.js
+│   ├── currentUser.routes.js
 │   └── task.routes.js
 ├── middleware/
 │   └── isAuth.middleware.js
@@ -148,6 +149,9 @@ All APIs are documented using **Postman** for easy testing and verification.
 - **PATCH** `/api/tasks/updateTask/:id` – Update an existing task
 - **DELETE** `/api/tasks/deleteTask/:id` – Delete a task
 - **DELETE** `/api/tasks/deleteAllTasks` – Delete all tasks
+
+### currentUser API (Protected)
+- **GET** `/api/user/currentUser – Fetch current user or loggedIn user
 
 **Postman Collection File:**
 - `Frontend-Dev-Task.postman_collection.json`
