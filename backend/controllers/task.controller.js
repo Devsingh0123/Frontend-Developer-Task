@@ -2,7 +2,7 @@ import Task from "../models/Task.schema.js";
 
 // Create Task
 export const createTask = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description,completed  } = req.body;
 
   const userId = req.user
   console.log(userId);
@@ -10,7 +10,7 @@ export const createTask = async (req, res) => {
 
   if (!title) return res.status(400).json({ message: "Title is required" });
 
-  const task = await Task.create({ user:userId, title, description });
+  const task = await Task.create({ user:userId, title, description, completed: completed ?? false});
   res.status(201).json(task);
 };
 

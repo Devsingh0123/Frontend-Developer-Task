@@ -25,7 +25,7 @@ const Navbar = () => {
           Profile
         </Link>
 
-        <span className="text-sm">Hi, {user?.name}</span>
+        <span className="text-sm hidden md:block">Hi, {user?.name}</span>
 
         <button
           onClick={async () => {

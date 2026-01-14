@@ -2,19 +2,26 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../redux/taskSlice/taskSlice";
 import TaskForm from "./TaskForm";
+import toast from "react-hot-toast";
+
 
 const TaskCard = ({ task }) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
 
+  console.log(task);
+
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this task?")) {
       dispatch(deleteTask(task._id));
+       toast.success("Task deleted 🗑️");
+    }else{
+      toast.error("Failed to delete task ❌");
     }
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow relative w-full">
+    <div className="bg-white p-4 rounded-lg shadow relative ">
       {isEditing ? (
         <TaskForm editableTask={task} onClose={() => setIsEditing(false)} />
       ) : (
@@ -23,12 +30,12 @@ const TaskCard = ({ task }) => {
           <p className="text-gray-600 mb-1  truncate">{task.description}</p>
           <span
             className={`inline-block px-2 py-1 rounded text-sm ${
-              task.status === "completed"
-                ? "bg-green-200 text-green-800"
-                : "bg-yellow-200 text-yellow-800"
+              task.completed
+                ? "bg-green-400 text-green-800"
+                : "bg-yellow-400 text-yellow-800"
             }`}
           >
-            {task.status}
+            {task.completed ? "completed" : "pending"}
           </span>
 
           <div className="absolute top-2 right-2 flex gap-2 ">

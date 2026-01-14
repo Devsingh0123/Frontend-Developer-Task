@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+
 import { createTask, updateTask } from "../redux/taskSlice/taskSlice";
 
 const TaskForm = ({ editableTask = null, onClose }) => {
@@ -9,7 +11,7 @@ const TaskForm = ({ editableTask = null, onClose }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    status: "pending", // pending / completed
+    completed: false
   });
 
   // If editing, populate form
@@ -18,42 +20,36 @@ const TaskForm = ({ editableTask = null, onClose }) => {
       setFormData({
         title: editableTask.title,
         description: editableTask.description,
-        status: editableTask.status,
+        completed: editableTask.completed,
       });
     }
   }, [editableTask]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value,completed: e.target.value === "true",});
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editableTask) {
       dispatch(updateTask({ id: editableTask._id, updates: formData }));
+      toast.success("Task updated successfully ✅");
       onClose(); 
     } else {
       dispatch(createTask(formData));
-      setFormData({ title: "", description: "", status: "pending" });
+       toast.success("Task added successfully 🎉");
+      setFormData({ title: "", description: "", completed: false });
     }
   };
 
 
-// for deleting all the tasks
-//   const handleDeleteAll = () => {
-//   const confirm = window.confirm(
-//     "Are you sure you want to delete all tasks?"
-//   );
-//   if (confirm) {
-//     dispatch(deleteAllTasks());
-//   }
-// };
+
 
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-4 rounded-lg shadow mb-4 w-[50%]"
+      className="bg-white p-4 rounded-lg shadow mb-4 "
     >
       <input
         type="text"
@@ -72,16 +68,16 @@ const TaskForm = ({ editableTask = null, onClose }) => {
         className="w-full px-3 py-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
       />
       <select
-        name="status"
-        value={formData.status}
+        name="completed"
+        value={formData.completed}
         onChange={handleChange}
         className="w-full px-3 py-2 border rounded mb-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
       >
-        <option value="pending">Pending</option>
-        <option value="completed">Completed</option>
+        <option value="false">Pending</option>
+        <option value="true">Completed</option>
       </select>
       {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-      {/* <div className="flex gap-7"> */}
+     
         <button
         type="submit"
         disabled={loading}
@@ -91,7 +87,7 @@ const TaskForm = ({ editableTask = null, onClose }) => {
   
 
       </button>
-            {/* {tasks && <button  className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded font-semibold transition" onClick={handleDeleteAll}>Delete All Tasks</button>}</div> */}
+          
       {editableTask && (
         <button
           type="button"
