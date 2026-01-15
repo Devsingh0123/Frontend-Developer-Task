@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/authSlice/authSlice";
 import { useNavigate, Link } from "react-router-dom";
-import Loader from '../components/Loader';
+import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 
 const Register = () => {
@@ -35,9 +35,10 @@ const Register = () => {
     }
 
     dispatch(registerUser(formData));
-    toast.success("Register successfully ✅");
-    navigate("/login")
-
+    if (!loading && !error) {
+      toast.success("Register successfully ✅");
+      navigate("/login");
+    }
   };
 
   useEffect(() => {
@@ -46,9 +47,9 @@ const Register = () => {
     }
 
     if (error) {
-        toast.error(error);
-      }
-  }, [isAuthenticated,error, navigate]);
+      toast.error(error);
+    }
+  }, [isAuthenticated, error, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-purple-600 px-4">
@@ -98,16 +99,14 @@ const Register = () => {
             className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
 
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
           <button
             type="submit"
             disabled={loading}
             className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold transition"
           >
-            {loading ? <Loader/> : "Register"}
+            {loading ? <Loader /> : "Register"}
           </button>
         </form>
 
