@@ -23,7 +23,11 @@ const TaskForm = ({ editableTask = null, onClose }) => {
         completed: editableTask.completed,
       });
     }
-  }, [editableTask]);
+
+    if (error) {
+        toast.error(error);
+      }
+  }, [editableTask,error]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value,completed: e.target.value === "true",});
@@ -76,7 +80,7 @@ const TaskForm = ({ editableTask = null, onClose }) => {
         <option value="false">Pending</option>
         <option value="true">Completed</option>
       </select>
-      {/* {error && <p className="text-red-500 text-sm mb-2">{error}</p>} */}
+      {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
      
         <button
         type="submit"

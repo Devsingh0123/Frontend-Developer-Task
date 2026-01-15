@@ -44,7 +44,11 @@ const Register = () => {
     if (isAuthenticated) {
       navigate("/dashboard");
     }
-  }, [isAuthenticated, navigate]);
+
+    if (error) {
+        toast.error(error);
+      }
+  }, [isAuthenticated,error, navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-purple-600 px-4">
