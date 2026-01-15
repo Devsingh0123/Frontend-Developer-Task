@@ -6,8 +6,10 @@ import toast from "react-hot-toast";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
+
+ 
 
   return (
     <nav className="bg-purple-600 text-white px-6 py-4 flex justify-between items-center">
@@ -28,13 +30,9 @@ const Navbar = () => {
 
         <button
           onClick={async () => {
-            try {
-              await dispatch(logoutUser()).unwrap();
-              toast.success("Logout successfully ✅");
-              navigate("/login");
-            } catch (err) {
-              toast.error("Logout failed ❌");
-            }
+          await dispatch(logoutUser())
+          toast.success("Logout successfully ✅");
+          navigate("/login");
           }}
           className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 cursor-pointer"
         >
