@@ -34,8 +34,8 @@ const Login = () => {
 
   useEffect(() => {
   if (isAuthenticated) {
-    toast.success("Login successful ✅");
     navigate("/dashboard");
+    toast.success("Login successful ✅");
   }
 
   if (error) {
@@ -71,9 +71,9 @@ const Login = () => {
             className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
-          {error && (
+          {/* {error && (
             <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
+          )} */}
 
           <button
             type="submit"

@@ -11,9 +11,9 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { isAuthenticated, loading, error } = useSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated, loading, error, user } = useSelector((state) =>{
+    console.log(state.auth)
+    return state.auth});
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,22 +35,19 @@ const Register = () => {
     }
 
     dispatch(registerUser(formData));
-    if (!error) {
-      toast.success("Register successfully ✅");
-      
-    }
+
+    
+
     navigate("/login");
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
-
+    
     if (error) {
       toast.error(error);
-    }
-  }, [isAuthenticated, error, navigate]);
+    } 
+    
+  }, [isAuthenticated, error, user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-pink-500 to-purple-600 px-4">
@@ -100,7 +97,7 @@ const Register = () => {
             className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
 
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+          {/* {error && <p className="text-red-500 text-sm text-center">{error}</p>} */}
 
           <button
             type="submit"
